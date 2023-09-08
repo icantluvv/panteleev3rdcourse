@@ -8,8 +8,8 @@ def gon(key):
     print("\t" + "Время: " + str(racer_info['FinishedTimeSeconds']))
     print("")
 
-
 for key, racer_info in RACE_DATA.items():
+
     if racer_info['FinishedPlace'] == 1:
         finish = (f"выиграл {racer_info['RacerName']} поздравляем!")
         print(finish)
