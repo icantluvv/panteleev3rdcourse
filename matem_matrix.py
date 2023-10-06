@@ -20,17 +20,29 @@ class Matrix:
 
         return normalized_basis
 
+def input_matrix():
+    while True:
+        matrix_data = input("Введите матрицу в формате [[], [], ...]: ")
+    
+        try:
+            matrix_data = eval(matrix_data)  # Преобразуем введенную строку в список списков
+            if not isinstance(matrix_data, list):
+                raise ValueError("Ошибка! Введите матрицу в правильном формате.")
+            if not all(isinstance(row, list) for row in matrix_data):
+                raise ValueError("Ошибка! Введите матрицу в правильном формате.")
+            if not matrix_data:
+                raise ValueError("Ошибка! Матрица не может быть пустой.")
+            break
+        except Exception as e:
+            print(f"Ошибка: {e}")
+
+    return matrix_data
+
 if __name__ == "__main__":
-    matrix_data = [
-        [1, 2, 3, 4],
-        [0, 1, 2, 3],
-        [0, 0, 1, 2],
-        [0, 0, 0, 1]
+    matrix_data = input_matrix()
+    if matrix_data:
+        matrix = Matrix(matrix_data)
+        basis = matrix.gram_schmidt_basis()
 
-    ]
-
-    matrix = Matrix(matrix_data)
-    basis = matrix.gram_schmidt_basis()
-
-    for vector in basis:
-        print(vector)
+        for vector in basis:
+            print(vector)
