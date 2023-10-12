@@ -22,11 +22,11 @@ class XORNet(nn.Module):
 net = XORNet()
 
 # Определяем функцию потерь и оптимизатор
-criterion = nn.BCELoss()  # Бинарная кросс-энтропия
-optimizer = optim.SGD(net.parameters(), lr=0.001)
+criterion = nn.BCELoss()  
+optimizer = optim.Adam(net.parameters(), lr=0.0001)
 
 # Обучение сети
-for epoch in range(40000):
+for epoch in range(50000):
     optimizer.zero_grad()
     output = net(data)
     loss = criterion(output, labels.view(-1, 1))
@@ -37,4 +37,5 @@ for epoch in range(40000):
 with torch.no_grad():
     test_data = torch.Tensor([[-1, -1], [-1, 1], [1, -1], [1, 1]])
     predictions = net(test_data)
-    print(predictions)
+    for pred in predictions:
+        print(f'{pred.item():.3f}')  # Ограничиваем вывод до 3 знаков после запятой
